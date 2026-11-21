@@ -1,0 +1,16 @@
+# This file configures the analyzer for the HCPP Demo project.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+  errors:
+    # Allow package:flutter/material.dart for backward compatibility with
+    # Flutter 3.29+ stable (material_ui migration is in progress)
+    deprecated_member_use: ignore
+
+linter:
+  rules:
+    prefer_const_constructors: true
+    prefer_const_declarations: true

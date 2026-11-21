@@ -1,0 +1,5 @@
+package dev.fluttercon.hcpp_demo
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()

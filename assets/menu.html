@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Restaurant Menu</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+      color: #fff;
+      min-height: 100vh;
+      padding: 16px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .menu-header {
+      text-align: center;
+      padding: 12px 0 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 16px;
+    }
+    .menu-header h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: #e94560;
+      letter-spacing: 1px;
+    }
+    .category {
+      margin-bottom: 24px;
+    }
+    .category-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f4c75;
+      background: rgba(15, 76, 117, 0.2);
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 14px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+    .menu-item:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(233, 69, 96, 0.3);
+    }
+    .menu-item:active {
+      transform: scale(0.98);
+      background: rgba(233, 69, 96, 0.2);
+    }
+    .item-emoji {
+      font-size: 32px;
+      margin-right: 14px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+    .item-info {
+      flex: 1;
+    }
+    .item-name {
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+    .item-desc {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+    .item-price {
+      font-size: 16px;
+      font-weight: 600;
+      color: #3ec1d3;
+    }
+    .added-feedback {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #e94560;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 24px;
+      font-weight: 500;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 100;
+      pointer-events: none;
+    }
+    .added-feedback.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    .native-label {
+      position: fixed;
+      top: 8px;
+      right: 8px;
+      background: rgba(233, 69, 96, 0.9);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      z-index: 1000;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="native-label" id="nativeLabel">Native WebView</div>
+  <div class="menu-header">
+    <h2>Today's Menu</h2>
+  </div>
+
+  <div class="category">
+    <div class="category-title">Starters</div>
+    <div class="menu-item" onclick="addToCart('Truffle Fries', 8.99)">
+      <span class="item-emoji">🍟</span>
+      <div class="item-info">
+        <div class="item-name">Truffle Fries</div>
+        <div class="item-desc">Crispy fries with truffle oil & parmesan</div>
+      </div>
+      <span class="item-price">$8.99</span>
+    </div>
+    <div class="menu-item" onclick="addToCart('Bruschetta', 7.49)">
+      <span class="item-emoji">🥖</span>
+      <div class="item-info">
+        <div class="item-name">Bruschetta</div>
+        <div class="item-desc">Toasted bread with tomatoes & basil</div>
+      </div>
+      <span class="item-price">$7.49</span>
+    </div>
+    <div class="menu-item" onclick="addToCart('Soup of the Day', 6.99)">
+      <span class="item-emoji">🍲</span>
+      <div class="item-info">
+        <div class="item-name">Soup of the Day</div>
+        <div class="item-desc">Ask your server for today's selection</div>
+      </div>
+      <span class="item-price">$6.99</span>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-title">Mains</div>
+    <div class="menu-item" onclick="addToCart('Grilled Salmon', 24.99)">
+      <span class="item-emoji">🐟</span>
+      <div class="item-info">
+        <div class="item-name">Grilled Salmon</div>
+        <div class="item-desc">Atlantic salmon with lemon butter sauce</div>
+      </div>
+      <span class="item-price">$24.99</span>
+    </div>
+    <div class="menu-item" onclick="addToCart('Ribeye Steak', 32.99)">
+      <span class="item-emoji">🥩</span>
+      <div class="item-info">
+        <div class="item-name">Ribeye Steak</div>
+        <div class="item-desc">12oz aged ribeye with herb butter</div>
+      </div>
+      <span class="item-price">$32.99</span>
+    </div>
+    <div class="menu-item" onclick="addToCart('Mushroom Risotto', 18.99)">
+      <span class="item-emoji">🍄</span>
+      <div class="item-info">
+        <div class="item-name">Mushroom Risotto</div>
+        <div class="item-desc">Creamy arborio with wild mushrooms</div>
+      </div>
+      <span class="item-price">$18.99</span>
+    </div>
+    <div class="menu-item" onclick="addToCart('Margherita Pizza', 16.99)">
+      <span class="item-emoji">🍕</span>
+      <div class="item-info">
+        <div class="item-name">Margherita Pizza</div>
+        <div class="item-desc">San Marzano tomatoes, fresh mozzarella</div>
+      </div>
+      <span class="item-price">$16.99</span>
+    </div>
+    <div class="menu-item" onclick="addToCart('Chicken Parmesan', 19.99)">
+      <span class="item-emoji">🍗</span>
+      <div class="item-info">
+        <div class="item-name">Chicken Parmesan</div>
+        <div class="item-desc">Breaded chicken with marinara & cheese</div>
+      </div>
+      <span class="item-price">$19.99</span>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-title">Desserts</div>
+    <div class="menu-item" onclick="addToCart('Tiramisu', 9.99)">
+      <span class="item-emoji">🍰</span>
+      <div class="item-info">
+        <div class="item-name">Tiramisu</div>
+        <div class="item-desc">Classic Italian coffee-flavored dessert</div>
+      </div>
+      <span class="item-price">$9.99</span>
+    </div>
+    <div class="menu-item" onclick="addToCart('Chocolate Lava Cake', 10.99)">
+      <span class="item-emoji">🍫</span>
+      <div class="item-info">
+        <div class="item-name">Chocolate Lava Cake</div>
+        <div class="item-desc">Warm cake with molten chocolate center</div>
+      </div>
+      <span class="item-price">$10.99</span>
+    </div>
+    <div class="menu-item" onclick="addToCart('Gelato Trio', 8.49)">
+      <span class="item-emoji">🍨</span>
+      <div class="item-info">
+        <div class="item-name">Gelato Trio</div>
+        <div class="item-desc">Three scoops of artisan gelato</div>
+      </div>
+      <span class="item-price">$8.49</span>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-title">Beverages</div>
+    <div class="menu-item" onclick="addToCart('Espresso', 3.99)">
+      <span class="item-emoji">☕</span>
+      <div class="item-info">
+        <div class="item-name">Espresso</div>
+        <div class="item-desc">Double shot Italian roast</div>
+      </div>
+      <span class="item-price">$3.99</span>
+    </div>
+    <div class="menu-item" onclick="addToCart('Fresh Lemonade', 4.99)">
+      <span class="item-emoji">🍋</span>
+      <div class="item-info">
+        <div class="item-name">Fresh Lemonade</div>
+        <div class="item-desc">House-made with mint</div>
+      </div>
+      <span class="item-price">$4.99</span>
+    </div>
+  </div>
+
+  <div style="height: 120px;"></div>
+
+  <div class="added-feedback" id="feedback">Added to cart!</div>
+
+  <script>
+    function addToCart(name, price) {
+      if (window.CartChannel) {
+        window.CartChannel.postMessage(JSON.stringify({ name: name, price: price }));
+      }
+      showFeedback(name);
+    }
+
+    function showFeedback(name) {
+      const feedback = document.getElementById('feedback');
+      feedback.textContent = name + ' added!';
+      feedback.classList.add('show');
+      setTimeout(() => feedback.classList.remove('show'), 1500);
+    }
+
+    function setLabelVisible(visible) {
+      document.getElementById('nativeLabel').style.display = visible ? 'block' : 'none';
+    }
+  </script>
+</body>
+</html>
